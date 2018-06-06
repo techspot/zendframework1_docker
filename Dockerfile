@@ -47,7 +47,7 @@ RUN chmod 777 -R /var/www \
   	&& a2enmod rewrite \
 	&& a2enmod headers \
     && php5enmod opcache \
-	&& sed -i -e 's/\/var\/www\/html/\/var\/www\/htdocs/' /etc/apache2/apache2.conf
+	&& sed -i -e 's/\/var\/www\/html/public/\/var\/www\/htdocs/' /etc/apache2/apache2.conf
 
 # Install oAuth
 RUN apt-get update \
