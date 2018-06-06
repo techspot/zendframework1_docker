@@ -1,0 +1,81 @@
+version: '2'
+services:
+  apache:
+    image: techspot/zendframework1
+    # build: .
+    ports:
+      - "80:80" # web
+      - "9001:9000" # xdebug
+      # - "35729:35729" # live reload
+    volumes:
+      - zendframework1-sync:/var/www/html:nocopy
+      - ~/.composer:/var/www/.composer
+      - ~/.npm:/var/www/.npm
+      # - ~/.nvm:/var/www/.nvm
+    environment:
+      XDEBUG_CONFIG: "remote_host=10.254.254.254 remote_connect_back=0"
+      PHP_IDE_CONFIG: "serverName=Docker"
+    depends_on:
+      - db
+    links:
+      - db
+    networks:
+      - -network
+
+  db:
+    image: mariadb
+    ports:
+     - 3300:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=zendframework
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - -network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+     - PMA_HOST=db
+     - PMA_USER=root
+     - PMA_PASSWORD=root
+     - MYSQL_ROOT_PASSWORD=root
+    ports:
+     - 8080:80
+    networks:
+      - -network
+
+  redis:
+    image: redis
+    ports:
+     - 6379
+    networks:
+      - -network
+
+  redis-session:
+    image: redis
+    ports:
+     - 6379
+    networks:
+      - -network
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - -network
+
+networks:
+  -network:
+    driver: bridge
+
+volumes:
+  zendframework1-sync:
+    external: true
+  dbdata:
+    driver: local

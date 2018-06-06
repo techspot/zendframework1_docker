@@ -1,0 +1,18 @@
+version: "2"
+options:
+  verbose: true
+syncs:
+  zendframework1-sync:
+    sync_userid: '1000'
+    sync_strategy: 'native_osx'
+    host_disk_mount_mode: 'cached'
+    src: './src'
+    # watch_args: '-v'
+    sync_excludes: [
+    '.idea',
+    '.git'
+    ]
+    watch_excludes: [
+    '.idea',
+    '.git'
+    ]
