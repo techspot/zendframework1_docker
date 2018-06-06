@@ -1,4 +1,4 @@
-FROM php:5.5-apache
+﻿FROM php:5.5-apache
 
 MAINTAINER Bruno Monteiro <babumsouza1@gmail.com>
 
