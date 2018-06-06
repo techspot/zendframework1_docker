@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:5.5-apache
 
 MAINTAINER Bruno Monteiro <babumsouza1@gmail.com>
 
@@ -6,8 +6,6 @@ ENV XDEBUG_PORT 9000
 
 RUN apt-get update \
     && apt-get install -y php5-dev \
-    php-apc \
-    php5.6-bcmath \
     php-pear \
     libpng12-dev \
     libmcrypt-dev \
